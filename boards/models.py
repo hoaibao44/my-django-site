@@ -42,7 +42,7 @@ class Post(models.Model):
     """
 
     def get_message_as_markdown(self):
-        print(mark_safe(markdown(self.message,safe_mode='escape')))
+        #print(mark_safe(markdown(self.message,safe_mode='escape')))
         return mark_safe(markdown(markdown(self.message,safe_mode='escape')).replace("<img",'<img class="img-fluid mx-auto d-block"'))
 
     def __str__(self):
