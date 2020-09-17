@@ -6,13 +6,17 @@
 
 {% block breadcrumb %}
 <div class="container">
-    <ol class="breadcrumb my-4">
-      <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+    <ol class="breadcrumb my-4" style="background-color: white;">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
       <li class="breadcrumb-item active">About me</li>
     </ol>
 </div>
 {% endblock %}
 
 {% block content %}
-    <p>About me page</p>
+<div class="site-section bg-light">
+  <div class="container">
+      <h1>About me</h1>
+  </div>
+</div>
 {% endblock %}

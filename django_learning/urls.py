@@ -22,7 +22,8 @@ from boards import views
 from accounts import views as accounts_views
 
 urlpatterns = [
-    url(r'^$', views.BoardListView.as_view(), name='home'),
+    url(r'^$', views.home, name='home'),
+    url(r'^blog/$', views.BoardListView.as_view(), name='blog'),
     path('about/',views.about,name='about'),
     url(r'^signup/$',accounts_views.signup,name='signup'),
     url(r'^boards/(?P<pk>\d+)/$', views.TopicListView.as_view(), name='board_topics'),

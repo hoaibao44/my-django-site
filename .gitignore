@@ -10,6 +10,9 @@ __pycache__/
 
 *.sqlite3
 
+#NOT UP LOCAL SETTING FILE TO GIT
+django_learning/settings.py
+
 # Distribution / packaging
 .Python
 build/

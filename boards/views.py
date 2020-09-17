@@ -36,8 +36,11 @@ def home(request):
 class BoardListView(ListView):
     model = Board
     context_object_name = 'boards'
-    template_name = 'home_base.html'
+    template_name = 'board_list.html'
 
+def home(request):
+    boards = Board.objects.all()
+    return render(request,'home_page.html',{'boards':boards})
 
 def about(request):
     boards = Board.objects.all()

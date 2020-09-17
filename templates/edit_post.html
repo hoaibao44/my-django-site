@@ -19,8 +19,8 @@
 
 {% block breadcrumb %}
 <div class="container">
-    <ol class="breadcrumb my-4">
-      <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+    <ol class="breadcrumb my-4" style="background-color: white;">
+      <li class="breadcrumb-item"><a href="{% url 'blog' %}">Blog</a></li>
       <li class="breadcrumb-item"><a href="{% url 'board_topics' post.topic.board.pk %}">{{ post.topic.board.name }}</a></li>
       <li class="breadcrumb-item"><a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}">{{ post.topic.subject }}</a></li>
       <li class="breadcrumb-item active">Edit post</li>
@@ -29,14 +29,14 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="container">
-    <form method="post" class="mb-4" novalidate>
-        {% csrf_token %}
-        {% include 'includes/form.html' %}
-        <button type="submit" class="btn btn-primary">Save changes</button>
-        <a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary" role="button">Cancel</a>
-    </form>
+<div class="site-section bg-light">
+  <div class="container">
+      <form method="post" class="mb-4" novalidate>
+          {% csrf_token %}
+          {% include 'includes/form.html' %}
+          <button type="submit" class="btn btn-primary">Save changes</button>
+          <a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+      </form>
+  </div>
 </div>
-
 {% endblock %}

@@ -3,8 +3,8 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container">
       <!-- Logo -->
-      <a class="navbar-brand" href="{% url 'home' %}">HoaiBao's Blog</a>
-
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <span class="icon-home"></span>HoaiBao's Blog</a>
       <!--link-->
       <ul class="navbar-nav">
         <!-- for each board
@@ -15,7 +15,7 @@
         {% endfor %}
         -->
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}">Board</a>
+          <a class="nav-link" href="{% url 'blog' %}"> Blog</a>
         </li>        
           <li class="nav-item">
             <a class="nav-link" href="{% url 'about' %}">About</a>
