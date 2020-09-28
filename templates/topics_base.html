@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load humanize %}
+
 {% block title %}
   {{ board.name }} - {{ block.super }}
 {% endblock %}
@@ -15,38 +17,35 @@
 {% endblock %}
 
 {% block content %}
-<div class="site-section bg-light">
   <div class="container">
     <div class="mb-4">
         <a href="{% url 'new_topic' board.pk %}" class="btn btn-primary">New topic</a>
     </div>
-
-    <table class="table table-hover" style="background-color: white;">
-        <thead class="thead-dark">
-          <tr>
-            <th>Topic</th>
-            <th>Starter</th>
-            <th>Replies</th>
-            <th>Views</th>
-            <th>Last Updated</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for topic in topics %}
+    <div class="table-responsive">
+      <table class="table table-hover" style="background-color: white;">
+          <thead class="thead-dark">
             <tr>
-              <td><a href="{% url 'topic_posts' board.pk topic.pk %}"> {{topic.subject }}</a></td>
-              <td>{{ topic.starter.username }}</td>
-              <td>{{ topic.replies }}</td>
-              <td>{{ topic.views }}</td>
-              <td>{{ topic.last_updated|date:"y-m-d H:i:s"  }}</td>
+              <th>Topic</th>
+              <th>Starter</th>
+              <th>Replies</th>
+              <th>Views</th>
+              <th>Last Updated</th>
             </tr>
-          {% endfor %}
-        </tbody>
-    </table>
-  
-
-  {% include 'includes/pagination.html' %}
+          </thead>
+          <tbody>
+            {% for topic in topics %}
+              <tr>
+                <td><a href="{% url 'topic_posts' board.pk topic.pk %}"> {{topic.subject }}</a></td>
+                <td>{{ topic.starter.username }}</td>
+                <td>{{ topic.replies }}</td>
+                <td>{{ topic.views }}</td>
+                <td>{{ topic.last_updated|naturaltime  }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    </div>
+    {% include 'includes/pagination.html' %}
   </div>
-</div>
 
 {% endblock %}

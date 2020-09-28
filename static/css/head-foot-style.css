@@ -1,11 +1,18 @@
-/* Base */
+/* Base 
 body {
   line-height: 1.7;
   color: gray;
   font-weight: 300;
-  font-size: 1rem;
+  font-size: 20px;
   background: #fff;
   font-family: "Muli", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }
+
+@media(max-width:767px){
+body{
+font-size: 25px;
+}
+}
+*/
 
 ::-moz-selection {
   background: #000;
@@ -92,11 +99,19 @@ h1, h2, h3, h4, h5,
     -webkit-box-shadow: none !important;
     box-shadow: none !important; }
 
+.mini-section{
+  padding-left: 0em;
+  padding-top: 1em;
+  padding-right: 0em;
+  padding-bottom: 0em;
+
+}
+
 .site-section {
-  padding: 2.5em 0; }
+  padding: 2.2em 0; }
   @media (min-width: 768px) {
     .site-section {
-      padding: 5em 0; } }
+      padding: 3em 0; } }
   .site-section.site-section-sm {
     padding: 4em 0; }
 

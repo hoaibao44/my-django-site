@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load humanize %}
+
 {% block breadcrumb %}
 <div class="container">
     <ol class="breadcrumb my-4" style="background-color: white;">
@@ -10,8 +12,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="site-section bg-light">
-  <div class="container">
+<div class="container">
+  <div class="table-responsive">
     <table class="table table-hover" style="background-color: white;">
       <thead class="thead-dark">
         <tr>
@@ -37,7 +39,8 @@
               {% with post=board.get_last_post %}
                 <small>
                   <a href="{% url 'topic_posts' board.pk post.topic.pk %}">
-                    By {{ post.created_by.username }} at {{ post.created_at|date:"y-m-d H:i:s" }}
+                  <!--|date:"y-m-d H:i:s-->
+                    By {{ post.created_by.username }} at {{ post.created_at|naturaltime }}
                   </a>  
                 </small>
               {% endwith %}
