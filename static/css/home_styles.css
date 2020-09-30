@@ -10141,7 +10141,7 @@ body {
 }
 
 #mainNav {
-  min-height: 3.5rem;
+  min-height: 3rem;
   background-color: #fff;
 }
 #mainNav .navbar-toggler {
@@ -10184,6 +10184,7 @@ body {
     padding: 2rem 1.5rem;
     color: rgba(255, 255, 255, 0.5);
   }
+  
   #mainNav .nav-link:hover {
     color: rgba(255, 255, 255, 0.75);
   }
@@ -10194,6 +10195,7 @@ body {
   /*when scroll: change the navbar style*/
   #mainNav.navbar-shrink {
     background-color: #fff;
+    opacity: 0.9;
   }
   #mainNav.navbar-shrink .navbar-brand {
     color: #ffffff;
@@ -10235,7 +10237,7 @@ body {
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000000 100%), url("../assets/img/bg-masthead.jpg");
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000000 100%), url("https://scontent-nrt1-1.xx.fbcdn.net/v/t1.15752-9/106528150_3258512570862021_8869536068335843678_n.jpg?_nc_cat=111&_nc_sid=ae9488&_nc_ohc=8C_Rnv5Q3G8AX-x-F9F&_nc_ht=scontent-nrt1-1.xx&oh=26cfbc6549efa037ca13e71cff2972f2&oe=5F99EAA6");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -10278,7 +10280,8 @@ body {
 }
 
 .about-section {
-  padding-top: 10rem;
+  padding-top: 5rem;
+  padding-bottom: 5em;
   background: linear-gradient(to bottom, #000000 0%, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8) 100%);
 }
 .about-section p {
@@ -10286,7 +10289,7 @@ body {
 }
 
 .projects-section {
-  padding: 10rem 0;
+  padding: 1rem 0;
 }
 .projects-section .featured-text {
   padding: 2rem;
