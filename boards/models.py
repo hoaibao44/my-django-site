@@ -27,7 +27,11 @@ class Topic(models.Model):
     
     def get_last_ten_posts(self):
         return self.posts.order_by('-created_at')[:10]
-
+    
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse("topic_posts",kwargs={"pk":self.board.pk,"topic_pk":self.pk})
+    
 class Post(models.Model):
     message = models.TextField(max_length=4000)
     topic = models.ForeignKey(Topic,on_delete=models.CASCADE,related_name='posts')
@@ -47,3 +51,4 @@ class Post(models.Model):
 
     def __str__(self):
         return self.message
+

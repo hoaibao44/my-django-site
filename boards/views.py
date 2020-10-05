@@ -46,6 +46,9 @@ def about(request):
     boards = Board.objects.all()
     return render(request,'about_me.html',{'boards':boards})
 
+def stock(request):
+    boards = Board.objects.all()
+    return render(request,'stock_monitor.html',{'boards':boards})
 
 # this is FBV for topics view
 """
@@ -108,15 +111,6 @@ def new_topic(request,pk):
     
     return render(request,'new_topic.html',{'boards':Board.objects.all(),'board':board,'form':form})
 
-# FBV for posts in topics
-"""
-def topic_posts(request,pk,topic_pk):
-
-    topic = get_object_or_404(Topic,board__pk=pk,pk=topic_pk)
-    topic.views +=1
-    topic.save()
-    return render(request,'topic_posts.html',{'boards':Board.objects.all(),'topic':topic})
-"""
 # GCBV for posts in topic
 class PostListView(ListView):
     model = Post

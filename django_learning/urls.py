@@ -17,13 +17,21 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
+from django.contrib.sitemaps.views import sitemap
 
 from boards import views
+from boards.sitemaps import PostSitemap
 from accounts import views as accounts_views
+
+sitemaps = {
+    "posts":PostSitemap,
+    }
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
+    path('sitemap.xml',sitemap,{'sitemaps':sitemaps},name='sitemap'),
     url(r'^blog/$', views.BoardListView.as_view(), name='blog'),
+    path('stock/', views.stock, name='stock'),
     path('about/',views.about,name='about'),
     url(r'^signup/$',accounts_views.signup,name='signup'),
     url(r'^boards/(?P<pk>\d+)/$', views.TopicListView.as_view(), name='board_topics'),
