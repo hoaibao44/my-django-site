@@ -18,6 +18,8 @@ from django.urls import path
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from django.contrib.sitemaps.views import sitemap
+from django.conf import settings
+from django.conf.urls.static import static
 
 from boards import views
 from boards.sitemaps import PostSitemap
@@ -68,7 +70,12 @@ urlpatterns = [
 
     url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/reply/$', views.reply_topic, name='reply_topic'),
 
-    url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$$', views.PostUpdateView.as_view(), name='edit_post'),
+    url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$', views.PostUpdateView.as_view(), name='edit_post'),
 
     url(r'^settings/account/$', views.UserUpdateView.as_view(), name='my_account'),
+
+    url(r'upload/$',views.model_form_upload,name='upload'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

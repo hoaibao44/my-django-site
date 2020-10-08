@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+    {% if dc %}
+        <p>File uploaded at: <a href="{{ dc.document.url }}">{{ dc.file_name }}</a></p>
+        <p><a href="{% url 'home' %}">Return to home</a></p>
+    {% else %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!--
+        <input type="file" name="myfile">-->
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

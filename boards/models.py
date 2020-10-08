@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.text import Truncator
 from markdown import markdown
 from django.utils.html import mark_safe
+from django.conf import settings
 
 class Board(models.Model):
     name = models.CharField(max_length=30,unique=True)
@@ -51,4 +52,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.message
+
+class Document(models.Model):
+    
+    description = models.CharField(max_length=255,blank=True)
+    document = models.FileField(upload_to='documents/')
+
+    def file_name(self):
+        return self.document.name
 
