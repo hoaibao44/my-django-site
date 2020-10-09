@@ -22,6 +22,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from boards import views
+from upload_file import views as upv
 from boards.sitemaps import PostSitemap
 from accounts import views as accounts_views
 
@@ -74,7 +75,7 @@ urlpatterns = [
 
     url(r'^settings/account/$', views.UserUpdateView.as_view(), name='my_account'),
 
-    url(r'upload/$',views.model_form_upload,name='upload'),
+    url(r'upload/$',upv.model_form_upload,name='upload'),
 ]
 
 if settings.DEBUG:

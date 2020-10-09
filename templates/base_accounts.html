@@ -24,10 +24,12 @@
         <div class="container">
           <a class="navbar-brand" href="{% url 'home' %}">Home</a>
         </div>
-      </nav>
+    </nav>
     <br>
-    {% block breadcrumb %}
-    {% endblock %}
+    <div class="mini-section">
+      {% block breadcrumb %}
+      {% endblock %}
+    </div>
     
     <div class="container">
       {% block content %}

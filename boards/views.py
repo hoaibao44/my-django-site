@@ -12,7 +12,7 @@ from django.contrib import messages
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
-from .forms import NewTopicForm,PostForm,DocumentForm
+from .forms import NewTopicForm,PostForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
@@ -181,22 +181,3 @@ class UserUpdateView(UpdateView):
         messages.add_message(self.request,messages.SUCCESS,'Your profile is successfully changed!')
         return super().form_valid(form)
 
-"""
-def simple_upload(request):
-    if request.method == 'POST' and request.FILES['myfile']:
-        myfile = request.FILES['myfile']
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name,myfile)
-        uploaded_file_url = fs.url(filename)
-        return render(request,'simple_upload.html',{'uploaded_file_url':uploaded_file_url})
-    return render(request,'simple_upload.html')
-"""
-def model_form_upload(request):
-    if request.method =='POST':
-        form = DocumentForm(request.POST,request.FILES)
-        if form.is_valid():
-            dc = form.save()
-            return render(request,'simple_upload.html',{'dc':dc})
-    else:
-        form = DocumentForm()
-    return render(request,'simple_upload.html',{'form':form})

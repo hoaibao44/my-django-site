@@ -53,11 +53,5 @@ class Post(models.Model):
     def __str__(self):
         return self.message
 
-class Document(models.Model):
-    
-    description = models.CharField(max_length=255,blank=True)
-    document = models.FileField(upload_to='documents/')
 
-    def file_name(self):
-        return self.document.name
 
