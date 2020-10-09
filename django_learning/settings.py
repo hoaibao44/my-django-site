@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'django_learning.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -100,7 +100,7 @@ DATABASES = {
         default=config('DATABASE_URL')
         )
 }
-"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
