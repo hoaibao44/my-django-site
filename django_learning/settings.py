@@ -20,19 +20,18 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'v1$x=*x!+intn-g0-$@y-%dv@((*ghwxb+u!j9nwjj1-_k(#^a'
+# SECRET_KEY = 'v1$x=*x!+intn-g0-$@y-%dv@((*ghwxb+u!j9nwjj1-_k(#^a'
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG',default=False,cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS',cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Application definition
 
@@ -44,12 +43,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'markdownify',
+
     'boards',
+
     'widget_tweaks',
     'accounts',
-    'django.contrib.sitemaps',
-    'upload_file',
+
+    'rest_framework',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -67,7 +70,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR,'templates')
+            os.path.join(BASE_DIR, 'templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -95,10 +98,17 @@ DATABASES = {
     }
 }
 """
+
+if config('DEBUG'):
+    setting__ = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+else:
+    setting__ = dj_database_url.config(default=config('DATABASE_URL'))
+
 DATABASES = {
-    'default':dj_database_url.config(
-        default=config('DATABASE_URL')
-        )
+    'default': setting__
 }
 
 
@@ -139,9 +149,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),'staticfiles')
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 LOGOUT_REDIRECT_URL = 'home'
@@ -150,7 +160,7 @@ LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-MESSAGE_TAGS ={
+MESSAGE_TAGS = {
     messages.ERROR: 'alert alert-danger',
     messages.WARNING: 'alert alert-warning',
     messages.SUCCESS: 'alert alert-success',
@@ -158,4 +168,32 @@ MESSAGE_TAGS ={
 }
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
+MARKDOWNIFY = {
+    "default": {
+        "WHITELIST_TAGS": [
+            'a',
+            'abbr',
+            'acronym',
+            'b',
+            'blockquote',
+            'em',
+            'i',
+            'li',
+            'ol',
+            'p',
+            'strong',
+            'ul',
+            'code',
+            'br',
+            'hr'
+        ],
+        'STRIP': True
+    }
+}

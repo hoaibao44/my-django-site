@@ -1,55 +1,63 @@
-{% load static %}<!DOCTYPE html>
+{% load static %}
+
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.8, shrink-to-fit=no">
-    <meta name="google" content="notranslate">
-    <meta name="description" content="Một blog sàm xí mới nổi - nơi bạn Bão chia sẻ những kinh trải nghiệm thú vị trong cuộc sống.">
-    <link rel="icon" href="{% static 'img/ico.jpg' %}" sizes="48x48" type="image/jpg" media="all">
 
-    <title>{% block title %}HoaiBao's Blog{% endblock %}</title>
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'css/home_styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/head-foot-style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/ico-style.css' %}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.8, shrink-to-fit=no">
+  <meta name="google" content="notranslate">
+  <meta name="description"
+    content="Một blog sàm xí mới nổi - nơi bạn Bão chia sẻ những kinh trải nghiệm thú vị trong cuộc sống.">
+  <link rel="icon" href="{% static 'img/ico.jpg' %}" sizes="48x48" type="image/jpg" media="all">
 
-    {% block stylesheet %}{% endblock %}
+  <title>{% block title %}HoaiBao's Blog{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/home_styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/head-foot-style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/ico-style.css' %}">
 
-    {% include 'includes/ga-tag.html' %}
-  </head>
-  <body id="page-top">
-    <div class="site-wrap">
-      
-      {% block body %}
-      <div class="site-section">
-          {% include 'includes/navbar.html' %}
-      </div>
-      <div class="mini-section">
-          {% block breadcrumb %}
-          {% endblock %}
-      </div>
+  {% block stylesheet %}{% endblock %}
 
-        {% block homepage %}
-        {% endblock %}
+  {% include 'includes/ga-tag.html' %}
+</head>
 
-      <div class="site-section bg-light">
-          {% block content %}
-          {% endblock %}
-        </div>
+<body id="page-top">
+  <div class="site-wrap">
+
+    {% block body %}
+    <div class="site-section">
+      {% include 'includes/navbar.html' %}
+    </div>
+    <div class="mini-section">
+      {% block breadcrumb %}
+      {% endblock %}
+    </div>
+
+    {% block homepage %}
+    {% endblock %}
+
+    <div class="site-section bg-light">
+      {% block content %}
+      {% endblock %}
+    </div>
 
 
-      {% endblock body %}
-      
-      
-      <div class="site-section"></div>
-      {% include 'includes/footer.html' %}
-      
-      <script src="{% static 'js/jquery.min.js' %}"></script>
-      <script src="{% static 'js/popper.min.js' %}"></script> 
-      <script src="{% static 'js/bootstrap.min.js' %}"></script>
-      <script src="{% static 'js/home_scripts.js' %}"></script>        
-      {% block javascript %}{% endblock %}
-      </div>
-  </body>
+    {% endblock body %}
+
+
+    <div class="site-section"></div>
+    {% include 'includes/footer.html' %}
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/home_scripts.js' %}"></script>
+    {% block javascript %}{% endblock %}
+  </div>
+</body>
+
 </html>

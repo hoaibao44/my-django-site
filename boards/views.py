@@ -1,18 +1,18 @@
-from django.shortcuts import render,get_object_or_404,redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Board,Topic,Post
+from .models import Board, Topic, Post
 from django.http import Http404
 from django.contrib.auth.models import User
 from django.db.models import Count
-from django.views.generic import UpdateView,ListView
+from django.views.generic import UpdateView, ListView
 from django.utils import timezone
-from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
-from .forms import NewTopicForm,PostForm
+from .forms import NewTopicForm, PostForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
@@ -35,22 +35,28 @@ def home(request):
     return render(request,'home_base.html',{'boards':boards})
 """
 # this is GCBV
+
+
 class BoardListView(ListView):
     model = Board
     context_object_name = 'boards'
     template_name = 'board_list.html'
 
+
 def home(request):
     boards = Board.objects.all()
-    return render(request,'home_page.html',{'boards':boards})
+    return render(request, 'home_page.html', {'boards': boards})
+
 
 def about(request):
     boards = Board.objects.all()
-    return render(request,'about_me.html',{'boards':boards})
+    return render(request, 'about_me.html', {'boards': boards})
+
 
 def stock(request):
     boards = Board.objects.all()
-    return render(request,'stock_monitor.html',{'boards':boards})
+    return render(request, 'stock_monitor.html', {'boards': boards})
+
 
 # this is FBV for topics view
 """
@@ -74,27 +80,32 @@ def board_topics(request,pk):
 
     return render(request,'topics_base.html',{'boards':Board.objects.all(),'board':board,'topics':topics})
 """
-#this is GCBV for topics view
+# this is GCBV for topics view
+
+
 class TopicListView(ListView):
     model = Topic
     context_object_name = 'topics'
     template_name = 'topics_base.html'
     paginate_by = 20
 
-    def get_context_data(self,**kwargs):
+    def get_context_data(self, **kwargs):
         kwargs['board'] = self.board
         return super().get_context_data(**kwargs)
-    
+
     def get_queryset(self):
-        self.board = get_object_or_404(Board,pk=self.kwargs.get('pk'))
-        queryset = self.board.topics.order_by('-views').annotate(replies=Count('posts')-1)
+        self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
+        # queryset = self.board.topics.order_by(
+        #     '-views').annotate(replies=Count('posts')-1)
+        queryset = self.board.get_all_topics()
         return queryset
 
-@login_required
-def new_topic(request,pk):
-    board = get_object_or_404(Board,pk=pk)
 
-    if request.method =='POST':
+@login_required
+def new_topic(request, pk):
+    board = get_object_or_404(Board, pk=pk)
+
+    if request.method == 'POST':
         form = NewTopicForm(request.POST)
         if form.is_valid():
             topic = form.save(commit=False)
@@ -107,48 +118,53 @@ def new_topic(request,pk):
                 created_by=request.user
             )
 
-            return redirect('topic_posts',pk=pk,topic_pk=topic.pk)
+            return redirect('topic_posts', pk=pk, topic_pk=topic.pk)
     else:
         form = NewTopicForm()
-    
-    return render(request,'new_topic.html',{'boards':Board.objects.all(),'board':board,'form':form})
+
+    return render(request, 'new_topic.html', {'boards': Board.objects.all(), 'board': board, 'form': form})
 
 # GCBV for posts in topic
+
+
 class PostListView(ListView):
     model = Post
     context_object_name = 'posts'
     template_name = 'topic_posts.html'
     paginate_by = 5
 
-    def get_context_data(self,**kwargs):
-        self.topic.views +=1
+    def get_context_data(self, **kwargs):
+        self.topic.views += 1
         self.topic.save()
         kwargs['topic'] = self.topic
         return super().get_context_data(**kwargs)
-    
+
     def get_queryset(self):
-        self.topic = get_object_or_404(Topic,board__pk=self.kwargs.get('pk'),pk=self.kwargs.get('topic_pk'))
+        self.topic = get_object_or_404(Topic, board__pk=self.kwargs.get(
+            'pk'), pk=self.kwargs.get('topic_pk'))
         queryset = self.topic.posts.order_by('created_at')
         return queryset
 
-@login_required
-def reply_topic(request,pk,topic_pk):
-    topic = get_object_or_404(Topic,board__pk=pk,pk=topic_pk)
 
-    if request.method =='POST':
+@login_required
+def reply_topic(request, pk, topic_pk):
+    topic = get_object_or_404(Topic, board__pk=pk, pk=topic_pk)
+
+    if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            post  = form.save(commit=False)
+            post = form.save(commit=False)
             post.topic = topic
             post.created_by = request.user
             post.save()
-            return redirect('topic_posts',pk=pk,topic_pk=topic.pk)
+            return redirect('topic_posts', pk=pk, topic_pk=topic.pk)
     else:
         form = PostForm()
-    
-    return render(request,'reply_topic.html',{'boards':Board.objects.all(),'topic':topic,'form':form})
 
-@method_decorator(login_required,name='dispatch')
+    return render(request, 'reply_topic.html', {'boards': Board.objects.all(), 'topic': topic, 'form': form})
+
+
+@method_decorator(login_required, name='dispatch')
 class PostUpdateView(UpdateView):
     model = Post
     fields = ('message',)
@@ -160,24 +176,26 @@ class PostUpdateView(UpdateView):
         queryset = super().get_queryset()
         return queryset.filter(created_by=self.request.user)
 
-    def form_valid(self,form):
+    def form_valid(self, form):
         post = form.save(commit=False)
         post.updated_by = self.request.user
         post.updated_at = timezone.now()
         post.save()
-        return redirect('topic_posts', pk = post.topic.board.pk,topic_pk=post.topic.pk)
+        return redirect('topic_posts', pk=post.topic.board.pk, topic_pk=post.topic.pk)
 
-@method_decorator(login_required,name='dispatch')
+
+@method_decorator(login_required, name='dispatch')
 class UserUpdateView(UpdateView):
     model = User
-    fields = ('first_name','last_name','email',)
+    fields = ('first_name', 'last_name', 'email',)
     template_name = 'my_account.html'
     success_url = reverse_lazy('my_account')
+
     def get_object(self):
         return self.request.user
 
-    def form_valid(self,form):
+    def form_valid(self, form):
         # raising success alert
-        messages.add_message(self.request,messages.SUCCESS,'Your profile is successfully changed!')
+        messages.add_message(self.request, messages.SUCCESS,
+                             'Your profile is successfully changed!')
         return super().form_valid(form)
-
