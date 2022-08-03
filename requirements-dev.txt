@@ -7,3 +7,4 @@ pandas==1.1.5
 python-decouple==3.6
 django-markdownify
 django-widget-tweaks
+whitenoise==6.0
