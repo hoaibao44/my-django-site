@@ -1,1 +1,1 @@
-web: gunicorn project.wsgi
+web: gunicorn django_learning.wsgi
