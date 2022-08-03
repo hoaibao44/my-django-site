@@ -19,7 +19,7 @@ class Board(models.Model):
         return Post.objects.filter(topic__board=self).order_by('-created_at').first()
 
     def get_all_topics(self):
-        return Topic.objects.filter(board=self).order_by('-id')
+        return Topic.objects.filter(board=self).reverse()
 
 
 class Topic(models.Model):

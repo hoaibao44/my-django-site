@@ -1,0 +1,6 @@
+dj_database_url==0.5.0
+Django==3.1.1
+djangorestframework==3.13.1
+Markdown==3.2.2
+pandas==1.1.5
+python-decouple==3.6
