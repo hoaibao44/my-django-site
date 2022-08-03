@@ -83,7 +83,7 @@ urlpatterns = [
         views.PostUpdateView.as_view(), name='edit_post'),
 
     url(r'^settings/account/$', views.UserUpdateView.as_view(), name='my_account'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns.extend(acc_urls.urlpatterns)
 
